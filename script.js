@@ -1,64 +1,93 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
+  /* ==========================================================================
+     MODE SWITCHING
+     ========================================================================== */
   const root = document.documentElement;
-  const buttons = document.querySelectorAll('.mode-btn');
-  const STORAGE_KEY = 'mb_ecosystem_mode';
-  
-  // Local storage-ээс өмнөх тохиргоог шалгах, байхгүй бол 'zen' горимоор эхлэх
-  let currentMode = localStorage.getItem(STORAGE_KEY) || 'zen';
-  
-  // Анхны төлөвийг ачааллах үед шилжилтгүйгээр тохируулах
-  applyMode(currentMode);
+  const toggleBtn = document.getElementById("mode-toggle");
+  const modes = {
+    soul: document.getElementById("soul-canvas"),
+    zen: document.getElementById("zen-terminal")
+  };
 
-  // Товчлууруудад үйлдэл холбох
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetMode = btn.getAttribute('data-mode-btn');
-      
-      // Хэрэв ижилхэн горим дээр дарвал үйлдэл хийхгүй
-      if (targetMode === currentMode) return;
-      
-      const updateDOM = () => applyMode(targetMode);
+  let currentMode = "soul";
 
-      // View Transitions API дэмждэг эсэхийг шалгаж, animation ажиллах нөхцөлийг хангах
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (document.startViewTransition && !prefersReducedMotion) {
-        document.startViewTransition(updateDOM);
-      } else {
-        updateDOM();
-      }
-    });
+  toggleBtn.addEventListener("click", () => {
+    const nextMode = currentMode === "soul" ? "zen" : "soul";
+    
+    if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.startViewTransition(() => switchMode(nextMode));
+    } else {
+      switchMode(nextMode);
+    }
   });
 
-  // Горим өөрчлөх үндсэн функц
-  function applyMode(mode) {
+  function switchMode(mode) {
     currentMode = mode;
-    root.setAttribute('data-mode', mode);
-    localStorage.setItem(STORAGE_KEY, mode);
+    root.setAttribute("data-mode", mode);
     
-    // Товчлуурын идэвхтэй төлөв (Aria болон Text) шинэчлэх
-    buttons.forEach(btn => {
-      const isSelected = btn.getAttribute('data-mode-btn') === mode;
-      btn.setAttribute('aria-pressed', isSelected);
-      
-      // Сонгогдсон горимоос шалтгаалан товчны текстийн хэлбэрийг өөрчлөх
-      if (mode === 'zen') {
-        btn.textContent = btn.getAttribute('data-mode-btn') === 'zen' ? '[ ZEN ]' : '[ SOUL ]';
-      } else {
-        btn.textContent = btn.getAttribute('data-mode-btn') === 'zen' ? 'Zen' : 'Soul';
+    Object.keys(modes).forEach(k => {
+      if (modes[k]) {
+        modes[k].classList.remove("active");
       }
     });
+    
+    if (modes[mode]) {
+      modes[mode].classList.add("active");
+    }
   }
 
-  // Зөвхөн Zen горим дээр харагдах сүлжээний хоцролт (Latency) симуляци
-  const latencyEl = document.getElementById('zen-latency');
-  if (latencyEl) {
-    setInterval(() => {
-      if (currentMode === 'zen') {
-        // 8-аас 13ms хооронд санамсаргүй тоо гаргах
-        latencyEl.textContent = Math.floor(8 + Math.random() * 6) + 'ms';
+  /* ==========================================================================
+     INTERSECTION OBSERVER (REVEAL ANIMATIONS)
+     ========================================================================== */
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Optional: Stop observing once revealed to keep it persistent
+        // observer.unobserve(entry.target); 
       }
-    }, 2400);
+    });
+  }, observerOptions);
+
+  const revealElements = document.querySelectorAll('.reveal-fade, .reveal-blur');
+  revealElements.forEach(el => observer.observe(el));
+
+  /* ==========================================================================
+     SMOOTH PARALLAX (REQUEST ANIMATION FRAME)
+     ========================================================================== */
+  const parallaxElements = document.querySelectorAll('.parallax');
+  let scrollY = window.scrollY;
+  let ticking = false;
+
+  function updateParallax() {
+    if (currentMode !== 'soul') return; // Only run in soul mode
+
+    parallaxElements.forEach(el => {
+      const speed = parseFloat(el.getAttribute('data-speed')) || 0;
+      // Calculate offset based on scroll position
+      const yPos = scrollY * speed;
+      el.style.transform = `translateY(${yPos}px)`;
+    });
+
+    ticking = false;
   }
+
+  window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+    if (!ticking && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  });
+
+  // Initial trigger
+  updateParallax();
 });
