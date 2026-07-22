@@ -1,172 +1,139 @@
 <!DOCTYPE html>
-<html lang="en" data-mode="zen">
+<html lang="en" data-mode="soul">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monkhbilguun — Synchronized Ecosystem</title>
-  <meta name="description" content="Dual-mode digital identity: Security Terminal and Wabi-Sabi Diary.">
-
+  <title>Monkhbilguun — Memory Dump</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- JetBrains Mono for Zen, Fraunces & Noto Serif JP for Soul -->
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono&family=Shippori+Mincho&display=swap" rel="stylesheet">
   
-  <!-- CSS файлаа холбох -->
   <link rel="stylesheet" href="style.css">
-  
-  <!-- JS файлаа холбох (defer ашигласнаар DOM уншиж дууссаны дараа ажиллана) -->
   <script src="script.js" defer></script>
 </head>
 <body>
 
-  <!-- Noise Filter Overlay -->
   <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="vignette-overlay" aria-hidden="true"></div>
+  <div class="dust-container" aria-hidden="true"></div>
 
-  <!-- Aurora Glow (Зөвхөн Soul mode дээр харагдана) -->
-  <div class="aurora-container" aria-hidden="true">
-    <div class="aurora-blob blob-1"></div>
-    <div class="aurora-blob blob-2"></div>
-    <div class="aurora-blob blob-3"></div>
-  </div>
+  <button id="mode-toggle" class="mode-toggle">sys.switch()</button>
 
-  <!-- Header / Nav -->
-  <header class="site-header">
-    <div class="logo-wrapper">
-      <span class="logo-wrapper__main">Monkhbilguun</span>
-      <span class="logo-wrapper__sub">モンフビルグーン</span>
+  <main id="soul-canvas" class="view-mode active">
+    
+    <div class="aurora haze-1"></div>
+    <div class="aurora haze-2"></div>
+    <div class="aurora haze-3"></div>
+
+    <div class="jp-vert float-1 parallax" data-speed="0.05">静かな夜</div>
+    <div class="jp-vert float-2 parallax" data-speed="0.02">まだ終わってない</div>
+    <div class="jp-vert float-3 parallax" data-speed="-0.04">何も分からない</div>
+    <div class="jp-vert float-4 parallax" data-speed="0.08">図書館だった</div>
+    <div class="jp-vert float-5 parallax" data-speed="-0.02">帰りたい</div>
+    <div class="jp-vert float-6 parallax" data-speed="0.06">全部覚えてる</div>
+
+    <div class="scroll-container">
+      
+      <section class="memory-fragment viewport-height center-ish">
+        <h1 class="huge-serif reveal-blur parallax" data-speed="0.1">Fade</h1>
+        <p class="whisper-text reveal-fade delay-1">memory leak // 0x0000</p>
+      </section>
+
+      <section class="memory-fragment asymmetrical-left">
+        <div class="diary-cluster parallax" data-speed="0.03">
+          <p class="jp-plain reveal-fade">
+            今日は６人分の晩ご飯を作った。<br>
+            手が玉ねぎの匂い。<br>
+            疲れた。<br>
+            でも、みんながおいしいって言った。<br>
+            それだけで十分だった。
+          </p>
+          <p class="mn-text reveal-fade delay-1">
+            Өнөөдөр 6 хүний хоол хийлээ. Гал тогоонд дулаахан, хүн бүр амттай байна гэх үед л ядаргаа тайлагдах шиг.
+          </p>
+          <p class="en-serif reveal-fade delay-2">
+            The smell of onions lingers on my hands.<br>
+            Standing at the stove for hours,<br>
+            finding rest in the motion.
+          </p>
+        </div>
+      </section>
+
+      <section class="memory-fragment huge-space">
+        <h2 class="huge-serif italic overlap-text reveal-blur parallax" data-speed="-0.05">Silence</h2>
+        <div class="jp-vert floating-quote reveal-fade parallax" data-speed="0.1">言葉はいらない。</div>
+      </section>
+
+      <section class="memory-fragment asymmetrical-right">
+        <div class="diary-cluster parallax" data-speed="0.04">
+          <p class="en-serif reveal-fade">
+            Dust motes dancing in the university library.<br>
+            The silent turning of pages.<br>
+            Rain hitting the tall glass windows.
+          </p>
+          <p class="jp-plain reveal-fade delay-1">
+            授業のあと図書館で漫画を読んだ。<br>
+            雨が降ってた。<br>
+            静かだった。<br>
+            帰りたくなかった。
+          </p>
+        </div>
+      </section>
+
+      <section class="memory-fragment asymmetrical-center padding-huge">
+        <div class="diary-cluster offset-cluster parallax" data-speed="0.02">
+          <p class="jp-plain reveal-fade">
+            道は終わらない気がした。<br>
+            誰も喋らない。<br>
+            ずっとマック・デマルコが流れてる。
+          </p>
+          <p class="mn-text reveal-fade delay-1">
+            Хөдөөгийн зам, нар жаргах үе. Машинд намуухан хөгжим эгшиглэнэ.
+          </p>
+          <p class="en-serif reveal-fade delay-2">
+            The road never seemed to end.<br>
+            Watching the sun dip below the infinite grasslands.<br>
+            Radiohead fading into Deftones.<br>
+            Some memories don't need words.
+          </p>
+        </div>
+      </section>
+
+      <section class="memory-fragment viewport-height flex-end-ish">
+        <p class="whisper-text reveal-fade parallax" data-speed="-0.02">...end of tape.</p>
+      </section>
+
     </div>
-    
-    <nav class="mode-toggle" aria-label="Environment Toggle">
-      <button class="mode-btn" data-mode-btn="zen" aria-pressed="true">[ ZEN ]</button>
-      <span class="nav-separator"></span>
-      <button class="mode-btn" data-mode-btn="soul" aria-pressed="false">[ SOUL ]</button>
-    </nav>
-  </header>
-
-  <main class="view-container">
-    
-    <!-- ==================== ZEN VIEW ==================== -->
-    <section id="view-zen" class="view-layer">
-      <div class="zen-grid">
-        
-        <header class="zen-panel zen-header">
-          <div>
-            <span class="z-subtitle">INITIATING TRUSTED_PARTNER_SHIELD</span>
-            <h1 class="z-title">Security & Quant Ops</h1>
-          </div>
-          <div class="uptime-container" style="text-align: right;">
-            <span class="z-subtitle" style="color:var(--text-dim);">UPTIME</span>
-            <div style="font-size: 1.5rem;">99.98%</div>
-          </div>
-        </header>
-
-        <div class="zen-panel zen-main-sys">
-          <div class="z-status-bar">
-            <span><div class="z-status-indicator"></div> SYSTEM NOMINAL</span>
-            <span>LATENCY: <span id="zen-latency">12ms</span></span>
-            <span class="hide-mobile">ENCRYPTION: AES-GCM-256</span>
-          </div>
-          
-          <span class="z-subtitle" style="margin-top:2rem;">CURRENT_WORK.MD</span>
-          <p class="z-text">
-            Engineering marketing and client systems for a consulting practice. Approaching <strong>client trust</strong> and <strong>security posture</strong> as identical vectors. Implementing Zero Trust architecture to minimize lateral movement while ensuring seamless Partner access.
-          </p>
-          <p class="z-text" style="margin-top: 1rem;">
-            The shield acts as an invisible perimeter—detecting anomalies in authentication behavior before escalation.
-          </p>
-        </div>
-
-        <div class="zen-panel zen-metrics">
-          <span class="z-subtitle">QUANT_BACKTEST_LOG</span>
-          <table class="z-table">
-            <thead>
-              <tr><th>METRIC</th><th>VALUE</th><th>DELTA</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>SHARPE_RATIO</td><td class="highlight">1.84</td><td>+0.12</td></tr>
-              <tr><td>WIN_RATE</td><td>57.2%</td><td>-0.4%</td></tr>
-              <tr><td>MAX_DRAWDOWN</td><td class="alert">-8.1%</td><td>--</td></tr>
-              <tr><td>ALPHA_DECAY</td><td>NOMINAL</td><td>--</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="zen-panel zen-logs">
-          <span class="z-subtitle">WRITEUPS_INDEX</span>
-          <table class="z-table">
-            <tbody>
-              <tr><td><a href="#">Zero_Trust_in_Practice.log</a></td><td style="text-align:right">JUN_26</td></tr>
-              <tr><td><a href="#">Threat_Model_Order_Book.log</a></td><td style="text-align:right">MAY_26</td></tr>
-              <tr><td><a href="#">IR_Runbooks_V2.log</a></td><td style="text-align:right">APR_26</td></tr>
-              <tr><td><a href="#">Latency_Arb_Notes.log</a></td><td style="text-align:right">FEB_26</td></tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <footer class="zen-panel zen-footer">
-          <span style="font-size:0.65rem; color:var(--text-dim);">© 2026 MONKHBILGUUN</span>
-          <span style="font-size:0.65rem; color:var(--text-dim);">END OF LINE.</span>
-        </footer>
-
-      </div>
-    </section>
-
-    <!-- ==================== SOUL VIEW ==================== -->
-    <section id="view-soul" class="view-layer">
-      <div class="soul-canvas">
-        
-        <div class="s-jp-vertical">静寂の中のノイズ — Noise in the silence.</div>
-
-        <div class="s-hero">
-          <h1 class="s-title">Monkhbilguun</h1>
-          <div class="s-subtitle">Distance · Language · Static</div>
-        </div>
-
-        <article class="s-block s-block--music">
-          <span class="s-label">Now Playing</span>
-          <div class="s-track">Digital Bath</div>
-          <div class="s-artist">Deftones</div>
-          <div class="s-waveform" aria-hidden="true">
-            <div class="s-bar"></div><div class="s-bar"></div><div class="s-bar"></div>
-            <div class="s-bar"></div><div class="s-bar"></div>
-          </div>
-        </article>
-
-        <article class="s-block s-block--diary">
-          <span class="s-label">Logbook · 記録</span>
-          
-          <div class="s-entry">
-            <div class="s-date">JUL 20</div>
-            <p class="s-prose">
-              今日、5〜6人分の晩ご飯を作った。ちょっと疲れたけど、みんな喜んでくれてよかった。<br>
-              <span class="en">Cooking Tsuivan is always a marathon itself. Heavy legs from Sunday's long run, but somehow standing at the stove felt like the same muscle group. Recovering through motion.</span>
-            </p>
-          </div>
-
-          <div class="s-entry">
-            <div class="s-date">JUL 14</div>
-            <p class="s-prose">
-              夜のドライブ。ウランバートルの空の色がゆっくり変わっていく。<br>
-              <span class="en">Rewound the same three minutes of static and guitar four times before writing anything down. Some nights the notebook is just a place to keep the noise.</span>
-            </p>
-          </div>
-        </article>
-
-        <article class="s-block s-block--training">
-          <span class="s-label">Marathon & JLPT</span>
-          <div class="s-training-text">Week 6 of 16 · Base Build</div>
-          <div class="s-marathon-line">
-            <div class="s-marathon-progress"></div>
-          </div>
-          <div class="s-training-stats" style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.7rem; color:var(--text-dim);">
-            <span>N3 → N2 Grammar: 140/240</span>
-            <span>Weekly Mileage: Trending Up</span>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
   </main>
+
+  <main id="zen-terminal" class="view-mode">
+    <div class="terminal-container">
+      <div class="term-line"><span class="prompt">monkhbilguun@local:~$</span> cat journal.md</div>
+      <div class="term-output">
+        [+] MEMORY DUMP INITIATED...<br>
+        [+] READING SECTORS 0x00 - 0xFF<br>
+        <br>
+        > 2026-07-22 18:43:01 | SYS_LOG: Cooking complete. Onion scent detected on peripherals.<br>
+        > 2026-07-14 14:12:33 | SYS_LOG: Library protocol active. Rain = true. Manga cache loaded.<br>
+        > 2026-06-30 20:05:11 | SYS_LOG: Highway.exe running. Audio output: Deftones / Mac DeMarco.
+      </div>
+
+      <br>
+
+      <div class="term-line"><span class="prompt">monkhbilguun@local:~$</span> tail -f dreams.log</div>
+      <div class="term-output dim">
+        03:11:42 - Processing endless grasslands...<br>
+        03:12:05 - Ambient static recognized as comfort.<br>
+        03:12:59 - No verbal I/O required.<br>
+        03:13:22 - Awaiting dawn...
+      </div>
+
+      <br>
+      
+      <div class="term-line"><span class="prompt">monkhbilguun@local:~$</span> <span class="cursor">_</span></div>
+    </div>
+  </main>
+
 </body>
 </html>
