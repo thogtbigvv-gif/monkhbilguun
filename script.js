@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   /* ==========================================================================
-     MODE SWITCHING
+     MODE SWITCHING (SOUL / ZEN)
      ========================================================================== */
   const root = document.documentElement;
   const toggleBtn = document.getElementById("mode-toggle");
@@ -28,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     root.setAttribute("data-mode", mode);
     
     Object.keys(modes).forEach(k => {
-      if (modes[k]) {
-        modes[k].classList.remove("active");
-      }
+      if (modes[k]) modes[k].classList.remove("active");
     });
     
     if (modes[mode]) {
@@ -39,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ==========================================================================
-     INTERSECTION OBSERVER (REVEAL ANIMATIONS)
+     INTERSECTION OBSERVER (REVEAL)
      ========================================================================== */
   const observerOptions = {
     root: null,
@@ -51,8 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // Optional: Stop observing once revealed to keep it persistent
-        // observer.unobserve(entry.target); 
       }
     });
   }, observerOptions);
@@ -61,18 +57,17 @@ document.addEventListener("DOMContentLoaded", () => {
   revealElements.forEach(el => observer.observe(el));
 
   /* ==========================================================================
-     SMOOTH PARALLAX (REQUEST ANIMATION FRAME)
+     PARALLAX FLOATING EFFECTS
      ========================================================================== */
   const parallaxElements = document.querySelectorAll('.parallax');
   let scrollY = window.scrollY;
   let ticking = false;
 
   function updateParallax() {
-    if (currentMode !== 'soul') return; // Only run in soul mode
+    if (currentMode !== 'soul') return;
 
     parallaxElements.forEach(el => {
       const speed = parseFloat(el.getAttribute('data-speed')) || 0;
-      // Calculate offset based on scroll position
       const yPos = scrollY * speed;
       el.style.transform = `translateY(${yPos}px)`;
     });
@@ -88,6 +83,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Initial trigger
   updateParallax();
 });
