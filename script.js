@@ -26,14 +26,70 @@ document.addEventListener("DOMContentLoaded", () => {
   function switchMode(mode) {
     currentMode = mode;
     root.setAttribute("data-mode", mode);
-    
+    toggleBtn.setAttribute("aria-pressed", mode === "zen" ? "true" : "false");
+
     Object.keys(modes).forEach(k => {
-      if (modes[k]) modes[k].classList.remove("active");
+      if (!modes[k]) return;
+      if (k === mode) {
+        modes[k].hidden = false;
+        modes[k].classList.add("active");
+      } else {
+        modes[k].classList.remove("active");
+        modes[k].hidden = true;
+      }
     });
-    
-    if (modes[mode]) {
-      modes[mode].classList.add("active");
+
+    if (mode === "zen") bootZenTerminal();
+  }
+
+  /* ==========================================================================
+     ZEN TERMINAL - TYPING EFFECT (boots once, first time zen mode opens)
+     ========================================================================== */
+  let zenBooted = false;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function bootZenTerminal() {
+    if (zenBooted) return;
+    zenBooted = true;
+
+    const typedEls = Array.from(document.querySelectorAll('#zen-terminal .typed'));
+    const outputEls = document.querySelectorAll('#zen-terminal .term-output');
+
+    if (reducedMotion) {
+      // Skip animation, just show everything immediately
+      typedEls.forEach(el => {
+        el.textContent = el.getAttribute('data-typed-text') || '';
+        el.classList.add('done');
+      });
+      outputEls.forEach(el => el.classList.add('visible'));
+      return;
     }
+
+    let i = 0;
+    function typeNext() {
+      if (i >= typedEls.length) return;
+      const el = typedEls[i];
+      const text = el.getAttribute('data-typed-text') || '';
+      let charIndex = 0;
+
+      function typeChar() {
+        if (charIndex <= text.length) {
+          el.textContent = text.slice(0, charIndex);
+          charIndex++;
+          setTimeout(typeChar, 35);
+        } else {
+          el.classList.add('done');
+          if (outputEls[i]) {
+            setTimeout(() => outputEls[i].classList.add('visible'), 200);
+          }
+          i++;
+          setTimeout(typeNext, 500);
+        }
+      }
+      typeChar();
+    }
+
+    typeNext();
   }
 
   /* ==========================================================================
