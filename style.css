@@ -24,8 +24,6 @@ html, body {
   --bg: #0b0c10;
   --text: #dcd6cd;
   --text-dim: #717782;
-  --accent: #4f5d75;
-  --accent-cosmic: #1f2833;
   
   --font-jp: 'Shippori Mincho', serif;
   --font-en-serif: 'Instrument Serif', serif;
@@ -37,7 +35,6 @@ html, body {
   --bg: #000000;
   --text: #66fcf1;
   --text-dim: #45a29e;
-  --accent: #ffffff;
   
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -83,12 +80,13 @@ html, body {
 }
 
 .view-mode {
-  display: none;
   width: 100%;
   min-height: 100vh;
 }
+.view-mode[hidden] {
+  display: none;
+}
 .view-mode.active {
-  display: block;
   animation: slowFadeIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
@@ -116,6 +114,11 @@ html, body {
 .haze-1 { width: 55vw; height: 55vw; background: #2c3e50; top: -10%; left: -10%; }
 .haze-2 { width: 60vw; height: 45vw; background: #34495e; bottom: 5%; right: -15%; animation-delay: -6s; }
 .haze-3 { width: 45vw; height: 60vw; background: #1a252f; top: 35%; left: 25%; animation-delay: -12s; }
+
+@media (max-width: 768px) {
+  /* Lighter blur radius: large filter blur is GPU-costly on mobile */
+  .aurora { filter: blur(70px); }
+}
 
 @keyframes cosmicBreathe {
   0% { transform: scale(1) translate(0, 0); }
@@ -267,8 +270,26 @@ html, body {
 
 .term-line { margin-bottom: 0.5rem; }
 .prompt { color: var(--text); margin-right: 0.5rem; }
-.term-output { margin-left: 1rem; margin-bottom: 2rem; color: var(--text-dim); }
-.term-output.dim { opacity: 0.6; }
+.term-output {
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.term-output.visible { opacity: 1; }
+.term-output.dim.visible { opacity: 0.6; }
+
+.typed::after {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 13px;
+  margin-left: 2px;
+  background-color: var(--text);
+  animation: blink 1s step-end infinite;
+}
+.typed.done::after { display: none; }
 
 .cursor {
   display: inline-block;
