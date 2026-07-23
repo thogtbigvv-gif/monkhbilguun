@@ -8,7 +8,11 @@
   <meta property="og:title" content="Cosmos — A Collection of Love">
   <meta property="og:description" content="Love poems gathered across languages and centuries.">
   <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cosmos — A Collection of Love">
+  <meta name="twitter:description" content="Love poems gathered across languages and centuries — Sappho, Rumi, classical Japan, Shakespeare.">
   <meta name="theme-color" content="#0b0c10">
+  <meta name="color-scheme" content="dark">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,11 +21,21 @@
 
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
+
+  <noscript>
+    <style>
+      .reveal-fade, .reveal-blur { opacity: 1 !important; transform: none !important; filter: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
 
   <div class="noise-overlay" aria-hidden="true"></div>
   <div class="vignette-overlay" aria-hidden="true"></div>
+
+  <div id="constellation-track" aria-hidden="true">
+    <div id="progress-fill"></div>
+  </div>
 
   <main id="poem-canvas">
 
@@ -29,18 +43,19 @@
     <div class="aurora haze-2"></div>
     <div class="aurora haze-3"></div>
 
-    <div class="jp-vert float-1 parallax" data-speed="0.05">恋</div>
-    <div class="jp-vert float-2 parallax" data-speed="0.02">愛</div>
-    <div class="jp-vert float-3 parallax" data-speed="-0.04">想</div>
-    <div class="jp-vert float-4 parallax" data-speed="0.08">詩</div>
-    <div class="jp-vert float-5 parallax" data-speed="-0.02">月</div>
-    <div class="jp-vert float-6 parallax" data-speed="0.06">星</div>
+    <div class="jp-vert float-1 parallax" data-speed="0.05" aria-hidden="true">恋</div>
+    <div class="jp-vert float-2 parallax" data-speed="0.02" aria-hidden="true">愛</div>
+    <div class="jp-vert float-3 parallax" data-speed="-0.04" aria-hidden="true">想</div>
+    <div class="jp-vert float-4 parallax" data-speed="0.08" aria-hidden="true">詩</div>
+    <div class="jp-vert float-5 parallax" data-speed="-0.02" aria-hidden="true">月</div>
+    <div class="jp-vert float-6 parallax" data-speed="0.06" aria-hidden="true">星</div>
 
     <div class="scroll-container">
 
       <section class="memory-fragment viewport-height center-ish">
         <h1 class="huge-serif reveal-blur parallax" data-speed="0.1">Cosmos</h1>
         <p class="whisper-text reveal-fade delay-1">A COLLECTION OF LOVE, ACROSS LANGUAGES AND CENTURIES</p>
+        <div class="scroll-cue reveal-fade delay-2" aria-hidden="true"></div>
       </section>
 
       <section class="memory-fragment asymmetrical-left">
@@ -63,7 +78,7 @@
             Caught by pains of menacing death, I falter,<br>
             Lost in the love-trance.
           </p>
-          <p class="poem-original reveal-fade delay-1">
+          <p class="poem-original reveal-fade delay-1" lang="grc">
             Φαίνεταί μοι κῆνος ἴσος θέοισιν<br>
             ἔμμεν᾽ ὤνηρ, ὄστις ἐναντίος τοι<br>
             ἰζάνει, καὶ πλασίον ἆδυ φωνεύ-<br>
@@ -75,7 +90,7 @@
 
       <section class="memory-fragment huge-space">
         <h2 class="huge-serif italic overlap-text reveal-blur parallax" data-speed="-0.05">Longing</h2>
-        <div class="jp-vert floating-quote reveal-fade parallax" data-speed="0.1">恋の海。</div>
+        <div class="jp-vert floating-quote reveal-fade parallax" data-speed="0.1" lang="ja">恋の海。</div>
       </section>
 
       <section class="memory-fragment viewport-height center-ish">
@@ -97,7 +112,7 @@
             Each night their watch-fire make<br>
             And guard it till daybreak.
           </p>
-          <p class="poem-original jp reveal-fade delay-1">
+          <p class="poem-original jp reveal-fade delay-1" lang="ja-Latn">
             Mikakimori<br>
             Eji no taku hi no<br>
             Yoru ha moe<br>
