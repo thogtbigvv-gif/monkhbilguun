@@ -1,32 +1,45 @@
-# 🌌 Monkhbilguun — Cosmic Sanctuary
+# 🌌 Cosmos — A Collection of Love
 
-> *"This is not a portfolio. This is not a CV. Just a quiet signal from an INTJ mind."*
+> *"Love, unbroken by language or time."*
 
 ---
 
 ## 👁️ About The Space
 
-This project is an experimental digital artwork—an emotional, aesthetic, and atmospheric sanctuary built for quiet contemplation rather than broadcasting achievements.
+Cosmos is a scroll-driven digital anthology of love poems, gathered across languages and centuries. Public-domain translations drift through a cosmic, aurora-lit scroll experience — each poem revealed in its own time as you descend through the page.
 
-It is designed with a **Dual-State Interface**:
-- **Soul Mode (`soul`):** A cosmic, foggy, and cozy environment. Unstructured memory fragments floating alongside Japanese plain-form (タメ口) notes, stargazing reflections, chess, books, and soundscapes.
-- **Zen Mode (`zen`):** A raw, high-contrast, brutalist terminal (`monkhbilguun@stargazer`) representing pure analytical thought.
+No portfolio, no CV. Just verses.
 
 ---
 
-## 🧠 Mind Profile & Aesthetic
+## 📜 The Poems
 
-```json
-{
-  "architect": "Monkhbilguun",
-  "mbti": "INTJ",
-  "age": 20,
-  "vibe": "Cosmic, Calm, Analytical, Foggy Night",
-  "interests": [
-    "Astronomy & Stargazing",
-    "Diverse Music Collector",
-    "Chess & Sudoku & Rubik's Cube",
-    "Literature & Cinema & Anime"
-  ]
-}
-# monkhbilguun
+| Poet | Origin | Translator |
+|---|---|---|
+| Sappho | Ancient Greece, ~570 BC | tr. J. A. Symonds, 1883 |
+| Rumi | Persia, 13th century | tr. E. H. Whinfield, 1898 |
+| Onakatomi no Yoshinobu (Hyakunin Isshu #49) | Japan, 10th century | tr. William N. Porter, 1909 |
+| William Shakespeare, Sonnet 116 | England, 1609 | — |
+
+All translations are 90+ years old and in the public domain.
+
+---
+
+## 🎨 Aesthetic
+
+- Cosmic aurora backdrop, breathing and blurred
+- Scroll-triggered reveal (`IntersectionObserver`) + parallax drift
+- Floating vertical Japanese characters — 恋 愛 想 詩 月 星
+- Full `prefers-reduced-motion` support
+
+---
+
+## 🛠️ Stack
+
+No build step, no dependencies — just three files:
+
+- `index.html` — structure & poem content
+- `style.css` — cosmic theme, typography, reveal/parallax animations
+- `script.js` — scroll reveal + parallax logic
+
+Fonts via Google Fonts: Fraunces, Instrument Serif, JetBrains Mono, Shippori Mincho.
