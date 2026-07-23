@@ -16,6 +16,24 @@ html, body {
   scroll-behavior: smooth;
 }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(220, 214, 205, 0.25) transparent;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(220, 214, 205, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(220, 214, 205, 0.35); }
+
+::selection {
+  background: rgba(244, 234, 217, 0.25);
+  color: #f4ead9;
+}
+
 /* ==========================================================================
    VARIABLES (COSMIC PALETTE)
    ========================================================================== */
@@ -23,6 +41,8 @@ html, body {
   --bg: #0b0c10;
   --text: #dcd6cd;
   --text-dim: #717782;
+  --text-soft: #8f96a3; /* lifted from --text-dim for AA contrast on readable poem content */
+  --glow: #f4ead9;
 
   --font-jp: 'Shippori Mincho', serif;
   --font-en-serif: 'Instrument Serif', serif;
@@ -52,10 +72,53 @@ html, body {
 }
 
 /* ==========================================================================
+   CONSTELLATION PROGRESS THREAD
+   Reading-progress bar with a star lighting up at each poem — wayfinding
+   for an otherwise directionless long scroll, doubling as the page's
+   signature motif (the poems as points of light on a single thread).
+   ========================================================================== */
+#constellation-track {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: rgba(220, 214, 205, 0.07);
+  z-index: 10000;
+  pointer-events: none;
+}
+
+#progress-fill {
+  position: absolute;
+  top: 0; left: 0; height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(244, 234, 217, 0.15), var(--glow));
+  box-shadow: 0 0 8px rgba(244, 234, 217, 0.45);
+}
+
+.progress-star {
+  position: absolute;
+  top: 50%;
+  width: 4px; height: 4px;
+  background: var(--text-dim);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: background 0.6s ease, box-shadow 0.6s ease, transform 0.4s ease;
+}
+
+.progress-star.lit {
+  background: var(--glow);
+  box-shadow: 0 0 6px 1px rgba(244, 234, 217, 0.8);
+  transform: translate(-50%, -50%) scale(1.6);
+}
+
+/* ==========================================================================
    LAYOUT & TYPOGRAPHY
    ========================================================================== */
 #poem-canvas {
   position: relative;
+}
+
+.parallax {
+  will-change: transform;
 }
 
 .aurora {
@@ -66,6 +129,7 @@ html, body {
   z-index: 0;
   pointer-events: none;
   animation: cosmicBreathe 22s infinite alternate ease-in-out;
+  will-change: transform;
 }
 .haze-1 { width: 55vw; height: 55vw; background: #2c3e50; top: -10%; left: -10%; }
 .haze-2 { width: 60vw; height: 45vw; background: #34495e; bottom: 5%; right: -15%; animation-delay: -6s; }
@@ -147,7 +211,7 @@ html, body {
   font-style: italic;
   font-size: clamp(1rem, 1.8vw, 1.25rem);
   line-height: 1.9;
-  color: var(--text-dim);
+  color: var(--text-soft);
   margin-top: 2rem;
 }
 .poem-original.jp {
@@ -208,6 +272,28 @@ html, body {
   opacity: 0.04;
   z-index: -1;
   pointer-events: none;
+}
+
+/* Scroll cue: signals the page continues below the fold */
+.scroll-cue {
+  margin-top: 3.5rem;
+  width: 1px;
+  height: 42px;
+  background: linear-gradient(to bottom, transparent, var(--text-dim) 70%, transparent);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-cue::after {
+  content: '';
+  position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--glow), transparent);
+  animation: scrollCueDrift 2.8s ease-in-out infinite;
+}
+@keyframes scrollCueDrift {
+  0% { top: -100%; }
+  100% { top: 100%; }
 }
 
 /* Reveal Transitions */
