@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monkhbilguun — Cosmic Sanctuary</title>
-  
+  <meta name="description" content="Not a portfolio. A quiet signal from an INTJ mind — stargazing, chess, books, soundscapes.">
+  <meta property="og:title" content="Monkhbilguun — Cosmic Sanctuary">
+  <meta property="og:description" content="A quiet signal from an INTJ mind.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0b0c10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono&family=Shippori+Mincho&display=swap" rel="stylesheet">
@@ -17,7 +23,7 @@
   <div class="noise-overlay" aria-hidden="true"></div>
   <div class="vignette-overlay" aria-hidden="true"></div>
 
-  <button id="mode-toggle" class="mode-toggle">sys.switch()</button>
+  <button id="mode-toggle" class="mode-toggle" aria-pressed="false" aria-label="Toggle between soul and zen mode">sys.switch()</button>
 
   <main id="soul-canvas" class="view-mode active">
     
@@ -89,9 +95,9 @@
     </div>
   </main>
 
-  <main id="zen-terminal" class="view-mode">
+  <main id="zen-terminal" class="view-mode" hidden>
     <div class="terminal-container">
-      <div class="term-line"><span class="prompt">monkhbilguun@stargazer:~$</span> cat mind_profile.json</div>
+      <div class="term-line"><span class="prompt">monkhbilguun@stargazer:~$</span> <span class="typed" data-typed-text="cat mind_profile.json"></span></div>
       <div class="term-output">
         {<br>
         &nbsp;&nbsp;"age": 20,<br>
@@ -109,7 +115,7 @@
 
       <br>
 
-      <div class="term-line"><span class="prompt">monkhbilguun@stargazer:~$</span> status system.mind</div>
+      <div class="term-line"><span class="prompt">monkhbilguun@stargazer:~$</span> <span class="typed" data-typed-text="status system.mind"></span></div>
       <div class="term-output dim">
         [+] NOISE_LEVEL: 0%<br>
         [+] LOGIC_ENGINE: ACTIVE<br>
