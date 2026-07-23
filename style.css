@@ -14,28 +14,19 @@ html, body {
   color: var(--text);
   overflow-x: hidden;
   scroll-behavior: smooth;
-  transition: background-color 1.5s ease, color 1.5s ease;
 }
 
 /* ==========================================================================
-   VARIABLES (AESTHETIC & COSMIC PALETTE)
+   VARIABLES (COSMIC PALETTE)
    ========================================================================== */
-:root[data-mode="soul"] {
+:root {
   --bg: #0b0c10;
   --text: #dcd6cd;
   --text-dim: #717782;
-  
+
   --font-jp: 'Shippori Mincho', serif;
   --font-en-serif: 'Instrument Serif', serif;
   --font-en-display: 'Fraunces', serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-
-:root[data-mode="zen"] {
-  --bg: #000000;
-  --text: #66fcf1;
-  --text-dim: #45a29e;
-  
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -60,45 +51,10 @@ html, body {
   background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.85) 100%);
 }
 
-.mode-toggle {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  z-index: 10000;
-  background: none;
-  border: none;
-  color: var(--text-dim);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  cursor: pointer;
-  opacity: 0.4;
-  transition: opacity 0.5s ease;
-}
-.mode-toggle:hover {
-  opacity: 1;
-}
-
-.view-mode {
-  width: 100%;
-  min-height: 100vh;
-}
-.view-mode[hidden] {
-  display: none;
-}
-.view-mode.active {
-  animation: slowFadeIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-@keyframes slowFadeIn {
-  from { opacity: 0; filter: blur(8px); }
-  to { opacity: 1; filter: blur(0); }
-}
-
 /* ==========================================================================
-   SOUL MODE - LAYOUT & TYPOGRAPHY
+   LAYOUT & TYPOGRAPHY
    ========================================================================== */
-#soul-canvas {
+#poem-canvas {
   position: relative;
 }
 
@@ -153,7 +109,7 @@ html, body {
 .asymmetrical-right { display: flex; justify-content: flex-end; padding-right: 12vw; text-align: right; }
 .flex-end-ish { align-items: flex-end; padding-right: 8vw; }
 
-.diary-cluster {
+.poem-cluster {
   max-width: 650px;
   display: flex;
   flex-direction: column;
@@ -178,31 +134,46 @@ html, body {
   margin-top: 2rem;
 }
 
-.jp-plain {
-  font-family: var(--font-jp);
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  line-height: 2.2;
+/* Poem typography: main translation / original-language echo / attribution */
+.poem-main {
+  font-family: var(--font-en-serif);
+  font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+  line-height: 1.8;
   color: var(--text);
-  letter-spacing: 0.05em;
 }
 
-.mn-text {
+.poem-original {
   font-family: var(--font-en-serif);
-  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
-  line-height: 1.6;
   font-style: italic;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.9;
   color: var(--text-dim);
+  margin-top: 2rem;
+}
+.poem-original.jp {
+  font-family: var(--font-jp);
+  font-style: normal;
+  letter-spacing: 0.03em;
 }
 
-.en-serif {
-  font-family: var(--font-en-serif);
-  font-size: clamp(1.4rem, 2.8vw, 2.2rem);
-  line-height: 1.4;
-  font-style: italic;
-  color: var(--text);
+.poem-author {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-top: 2.2rem;
+}
+.poem-author .tr {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  opacity: 0.65;
 }
 
-/* Vertical Japanese Phrases */
+/* Vertical Japanese Phrases (decorative) */
 .jp-vert {
   writing-mode: vertical-rl;
   font-family: var(--font-jp);
@@ -253,55 +224,16 @@ html, body {
 .delay-1 { transition-delay: 0.3s; }
 .delay-2 { transition-delay: 0.6s; }
 
-/* ==========================================================================
-   ZEN MODE - TERMINAL
-   ========================================================================== */
-#zen-terminal {
+.footer-credit {
   font-family: var(--font-mono);
-  padding: 4rem 2rem;
-}
-
-.terminal-container {
-  max-width: 800px;
-  margin: 0 auto;
-  font-size: 0.9rem;
-  line-height: 1.7;
-}
-
-.term-line { margin-bottom: 0.5rem; }
-.prompt { color: var(--text); margin-right: 0.5rem; }
-.term-output {
-  margin-left: 1rem;
-  margin-bottom: 2rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
   color: var(--text-dim);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-.term-output.visible { opacity: 1; }
-.term-output.dim.visible { opacity: 0.6; }
-
-.typed::after {
-  content: '';
-  display: inline-block;
-  width: 7px;
-  height: 13px;
-  margin-left: 2px;
-  background-color: var(--text);
-  animation: blink 1s step-end infinite;
-}
-.typed.done::after { display: none; }
-
-.cursor {
-  display: inline-block;
-  width: 8px;
-  height: 15px;
-  background-color: var(--text);
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  opacity: 0.4;
+  text-align: center;
+  padding: 4rem 0 6rem;
+  position: relative;
+  z-index: 10;
 }
 
 @media (prefers-reduced-motion: reduce) {
